@@ -1,21 +1,36 @@
-import React, {Component} from 'react'
-import A from './A'
+import React, { Component } from 'react'
 
-@A()
-class C extends Component {
-  render () {
-    return (
-      <div>
-        <input type="text" {...this.props} />
-        <div style={{backgroundColor: 'blue', width: '50%', float: 'left',height: '100px'}}></div><br/>
-        <div style={{backgroundColor: 'blue', width: '50%', float: 'left',height: '100px'}}></div><br/>
-        <div style={{backgroundColor: 'blue', width: '50%', float: 'left',height: '100px'}}></div><br/>
-        <div style={{backgroundColor: 'blue', width: '50%', float: 'left',height: '100px'}}></div><br/>
-        <div style={{clear: 'both'}}></div>
-      </div>
-    )
-  }
+export default () => WrappedComponent => class C extends Component {
 
+    static displayName = `NewComponent(${getDisplayName(WrappedComponent)})`;
+
+    constructor (props) {
+        super(props);
+        this.state = {
+            name: ''
+        }
+    }
+
+    changeInput = (e) => {
+        this.setState({
+            name: e.target.value
+        });
+    }
+
+    render() {
+        // const { ...newProps } = this.props;
+        const newProps = {
+            value: this.state.name,
+            onChange: this.changeInput
+        }
+        return (
+            <div>
+                <WrappedComponent {...newProps} />
+            </div>
+        )
+    }
 }
 
-export default C
+function getDisplayName(WrappedComponent) {
+    return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
