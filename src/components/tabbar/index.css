@@ -1,0 +1,43 @@
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5px 0;
+}
+
+.tabbar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #ccc;
+  transform: scaleY(0.5);
+  background: white;
+}
+
+.tabbar-container{
+  display: flex;
+}
+
+.tabbar-item{
+  flex: 1;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+}
+
+.tabbar-item.active {
+  color: red;
+}
+
+.tabbar-item i{
+  font-size: 28px;
+}
+
+.tabbar-item p{
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
